@@ -1,7 +1,12 @@
 local wezterm = require("wezterm")
 
 return {
-	font = wezterm.font("JetBrains Mono"),
+	-- JetBrains Mono renders all normal text unchanged; the Nerd Font is only
+	-- a fallback for icon glyphs (oh-my-pi, etc.) that JetBrains Mono lacks.
+	font = wezterm.font_with_fallback({
+		"JetBrains Mono",
+		"JetBrainsMono Nerd Font Mono",
+	}),
 	font_size = 18.0,
 	enable_tab_bar = false,
 	window_decorations = "RESIZE",
