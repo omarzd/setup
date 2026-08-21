@@ -52,6 +52,13 @@ set -gx EDITOR nvim
 # Dev root. Deliberately named differently on each machine so cloud-sync apps
 # don't collide; Tom's ~/dev is ~/swMac1 here. Everything else reads $DEV_DIR.
 set -gx DEV_DIR "$HOME/swMac1"
+
+# Rust toolchain (rustup). -g not -U: keep config.fish the single authority,
+# same reason as the vars above. rustup writes ~/.cargo/env.fish, but that file
+# is untracked, so the path is declared here instead.
+if test -d $HOME/.cargo/bin
+    fish_add_path -g $HOME/.cargo/bin
+end
 alias vim nvim
 alias cat bat
 alias sqlite /opt/homebrew/opt/sqlite/bin/sqlite3
