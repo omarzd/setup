@@ -35,6 +35,15 @@ return {
 	enable_tab_bar = false,
 	window_decorations = "RESIZE",
 	color_scheme = DARK,
+	-- Claude Code paints inline `code` as 256-colour index 153 (#afd7ff), a pale
+	-- blue that sits too close to white to be legible for a colour-blind reader.
+	-- Remap it to a warm amber: separated from white by BRIGHTNESS as well as
+	-- hue, so the cue survives regardless of colour-vision type.
+	colors = {
+		indexed = {
+			[153] = "#ffb86c",
+		},
+	},
 	window_close_confirmation = "NeverPrompt",
 	keys = {
 		{
