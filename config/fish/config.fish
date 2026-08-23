@@ -43,6 +43,18 @@ function sesh-picker
     end
     commandline -f repaint
 end
+# Resume agents into their panes by hand. No argument restores the whole board;
+# a tmux session name restores just that project. Independent of the reboot gate
+# (@restore-agents-on-reboot in tmux.conf); this is the manual path. Called by
+# full path, so the scripts dir stays off PATH.
+function restore-agents
+    set -l restore ~/.shyrosa/scripts/restore-agents.py
+    if test -n "$argv[1]"
+        $restore --session $argv[1]
+    else
+        $restore
+    end
+end
 bind \cf sesh-picker
 bind \ck clear
 bind \cg lazygit
