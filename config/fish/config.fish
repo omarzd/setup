@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/isilsukeles/.docker/bin"
+# End of Docker Desktop section.
+
 set fish_greeting
 
 # set -gx SSH_AUTH_SOCK "$HOME/.bitwarden-ssh-agent.sock"
@@ -72,7 +76,7 @@ if test -d $HOME/.cargo/bin
     fish_add_path -g $HOME/.cargo/bin
 end
 alias vim nvim
-alias cat bat
+alias cat 'bat --paging=never'
 alias sqlite /opt/homebrew/opt/sqlite/bin/sqlite3
 alias sql "nvim +DBUI"
 
