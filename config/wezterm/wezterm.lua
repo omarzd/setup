@@ -16,7 +16,9 @@ wezterm.on("toggle-theme", function(window, _pane)
 	window:set_config_overrides(overrides)
 end)
 
-return {
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+
+local config = {
 	-- JetBrains Mono renders all normal text unchanged; the Nerd Font is only
 	-- a fallback for icon glyphs (oh-my-pi, etc.) that JetBrains Mono lacks.
 	font = wezterm.font_with_fallback({
@@ -58,3 +60,24 @@ return {
 		},
 	},
 }
+
+-- Windows has no login shell to default to (Mac/Linux fall back to $SHELL),
+-- and no WSL distros are visible unless declared explicitly here.
+if is_windows then
+	config.default_prog = { "pwsh.exe", "-NoLogo" }
+	config.launch_menu = {
+		{ label = "PowerShell 7", args = { "pwsh.exe", "-NoLogo" } },
+		{ label = "Windows PowerShell", args = { "powershell.exe", "-NoLogo" } },
+		{ label = "WSL: Ubuntu", args = { "wsl.exe", "~", "-d", "Ubuntu" } },
+		{ label = "Command Prompt", args = { "cmd.exe" } },
+	}
+	config.wsl_domains = {
+		{
+			name = "WSL:Ubuntu",
+			distribution = "Ubuntu",
+			default_cwd = "~",
+		},
+	}
+end
+
+return config
